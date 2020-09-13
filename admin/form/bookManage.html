@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="/node_modules/amis/sdk/sdk.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body class="amis-scope">
+    <div
+      class="a-Layout a-Layout--withAside a-Layout--headerFixed a-Layout--asideFixed a-Layout--noFooter"
+    >
+      <div class="a-Layout-header">
+        <div>
+          <div class="a-Layout-brandBar">
+            <button class="pull-right visible-xs">
+              <i class="glyphicon glyphicon-align-justify"></i>
+            </button>
+            <div class="a-Layout-brand">
+              <i class="fa fa-paw"></i
+              ><span class="hidden-folded m-l-sm">AMis Boilerplate</span>
+            </div>
+          </div>
+          <div class="a-Layout-headerBar">
+            <div class="nav navbar-nav hidden-xs">
+              <button
+                id="aside-toggler"
+                type="button"
+                class="a-Button a-Button--link a-Button--iconOnly navbar-btn"
+              >
+                <i class="fa fa-dedent"></i>
+              </button>
+            </div>
+            <div class="hidden-xs p-t-sm pull-right">
+              <div class="dropdown">
+                <span
+                  ><span class="pull-right m-b-n-sm m-l-sm"
+                    ><span><i class="iconfont icon-admin"></i></span
+                    ><i class="on md b-white bottom"></i></span
+                  ><span class="hidden-sm hidden-md">admin</span
+                  ><b class="caret"></b
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="a-Layout-aside">
+        <div class="a-Layout-asideWrap">
+          <div id="asideInner" class="a-Layout-asideInner">
+            <!--导航部分-->
+            <nav class="a-AsideNav">
+              <ul class="a-AsideNav-list">
+                <li class="a-AsideNav-label"><span>导航</span></li>
+                <li class="a-AsideNav-item">
+                  <a href="/"><i
+                      class="a-AsideNav-itemIcon glyphicon glyphicon-signal"
+                    ></i
+                    ><span class="a-AsideNav-itemLabel">Dashboard</span></a
+                  >
+                  <div class="a-AsideNav-tooltip">Dashboard</div>
+                </li>
+                <!-- 若有父级菜单，添加 is-open class -->
+                <li class="a-AsideNav-item is-open">
+                  <a
+                    ><span class="a-AsideNav-itemArrow"></span
+                    ><i class="a-AsideNav-itemIcon glyphicon glyphicon-edit"></i
+                    ><span class="a-AsideNav-itemLabel">图书管理系统</span></a
+                  >
+                  <ul class="a-AsideNav-subList">
+                    <li class="a-AsideNav-subHeader"><a>图书管理系统</a></li>
+                    <!-- 当前页面添加 class is-active -->
+                    <li class="a-AsideNav-item is-active">
+                    <!-- 当前页面 href 设为 javascript:void(0); -->
+                      <a href="javascript:void(0);"
+                        ><span class="a-AsideNav-itemLabel">图书管理</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <!--导航结束-->
+          </div>
+        </div>
+      </div>
+      <div class="a-Layout-content" role="main">
+        <div id="main" class="a-Layout-body"></div>
+      </div>
+    </div>
+    <script src="/node_modules/amis/sdk/sdk.js"></script>
+
+
+    <script src="/js/script.js"></script>
+    <script type="text/javascript">
+      (function () {
+        var amis = amisRequire("amis/embed");
+
+        // 用 amis 的 sdk 渲染内容区
+        amis.embed("#main",
+        {
+                "$schema": "https://houtai.baidu.com/v2/schemas/page.json#",
+                "type": "page",
+                "title": "books management",
+                "body": [
+                    {
+                        "type": "crud",
+                        "api": "http://127.0.0.1:8085/tBooks",
+                        "headerToolbar": [],
+                        "footerToolbar": [
+                            "switch-per-page",
+                            "pagination"
+                        ],
+                        "columns": [
+                            {
+                                "name": "id",
+                                "label": "ID",
+                                "type": "text"
+                            },
+                            {
+                                "name": "name",
+                                "label": "图书名",
+                                "sortable": false,
+                                "quickEdit": false
+                            },
+                            {
+                                "name": "typeid",
+                                "type": "text",
+                                "label": "图书类别"
+                            },
+                            {
+                                "type": "operation",
+                                "label": "列说明",
+                                "buttons": [
+                                    {
+                                        "type": "button-group",
+                                        "buttons": [
+                                            {
+                                                "type": "submit",
+                                                "label": "更新",
+                                                "actionType": "ajax",
+                                                "dialog": {
+                                                    "title": "系统提示",
+                                                    "body": "对你点击了"
+                                                },
+                                                "confirmText": "确定更新？",
+                                                "api": "",
+                                                "block": false
+                                            },
+                                            {
+                                                "type": "button",
+                                                "label": "",
+                                                "actionType": "dialog",
+                                                "dialog": {
+                                                    "title": "系统提示",
+                                                    "body": "对你点击了"
+                                                },
+                                                "block": false,
+                                                "icon": "fa fa-snapchat-ghost",
+                                                "iconClassName": "pull-left"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "messages": {},
+                "initApi": {
+                    "method": "get",
+                    "url": "http://127.0.0.1:8085/tBooks"
+                },
+                "initFetch": true
+            }
+        );
+      })();
+    </script>
+  </body>
+</html>

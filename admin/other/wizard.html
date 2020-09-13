@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="/node_modules/amis/sdk/sdk.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <!-- 这个一定要记得加，否则导航部分没样式 -->
+  <body class="amis-scope">
+    <div
+      class="a-Layout a-Layout--withAside a-Layout--headerFixed a-Layout--asideFixed a-Layout--noFooter"
+    >
+      <div class="a-Layout-header">
+        <div>
+          <div class="a-Layout-brandBar">
+            <button class="pull-right visible-xs">
+              <i class="glyphicon glyphicon-align-justify"></i>
+            </button>
+            <div class="a-Layout-brand">
+              <i class="fa fa-paw"></i
+              ><span class="hidden-folded m-l-sm">AMis Boilerplate</span>
+            </div>
+          </div>
+          <div class="a-Layout-headerBar">
+            <div class="nav navbar-nav hidden-xs">
+              <button
+                id="aside-toggler"
+                type="button"
+                class="a-Button a-Button--link a-Button--iconOnly navbar-btn"
+              >
+                <i class="fa fa-dedent"></i>
+              </button>
+            </div>
+            <div class="hidden-xs p-t-sm pull-right">
+              <div class="dropdown">
+                <span
+                  ><span class="pull-right m-b-n-sm m-l-sm"
+                    ><span><i class="iconfont icon-admin"></i></span
+                    ><i class="on md b-white bottom"></i></span
+                  ><span class="hidden-sm hidden-md">admin</span
+                  ><b class="caret"></b
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="a-Layout-aside">
+        <div class="a-Layout-asideWrap">
+          <div id="asideInner" class="a-Layout-asideInner">
+            <!--导航部分-->
+            <nav class="a-AsideNav">
+              <ul class="a-AsideNav-list">
+                <li class="a-AsideNav-label"><span>导航</span></li>
+                <li class="a-AsideNav-item">
+                  <a href="/"
+                    ><i
+                      class="a-AsideNav-itemIcon glyphicon glyphicon-signal"
+                    ></i
+                    ><span class="a-AsideNav-itemLabel">Dashboard</span></a
+                  >
+                  <div class="a-AsideNav-tooltip">Dashboard</div>
+                </li>
+                <li class="a-AsideNav-item is-open">
+                  <a
+                    ><span class="a-AsideNav-itemArrow"></span
+                    ><i class="a-AsideNav-itemIcon glyphicon glyphicon-edit"></i
+                    ><span class="a-AsideNav-itemLabel">表单页面</span></a
+                  >
+                  <ul class="a-AsideNav-subList">
+                    <li class="a-AsideNav-subHeader"><a>表单页面</a></li>
+                    <li class="a-AsideNav-item">
+                      <a href="/admin/form/basic.html"
+                        ><span class="a-AsideNav-itemArrow"></span
+                        ><span class="a-AsideNav-itemLabel">常规表单</span></a
+                      >
+                      <ul class="a-AsideNav-subList">
+                        <li class="a-AsideNav-subHeader"><a>常规表单</a></li>
+                        <li class="a-AsideNav-item">
+                          <a href="/admin/form/basic/advanced"
+                            ><span class="a-AsideNav-itemLabel"
+                              >三级目录测试</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="a-AsideNav-item">
+                      <a href="/admin/form/advanced"
+                        ><span class="a-AsideNav-itemLabel">复杂表单</span></a
+                      >
+                    </li>
+                    <li class="a-AsideNav-item is-active">
+                      <a href="/admin/form/wizard"
+                        ><span class="a-AsideNav-itemLabel">向导</span></a
+                      >
+                    </li>
+                    <li class="a-AsideNav-item">
+                      <a href="/admin/form/editor"
+                        ><span class="a-AsideNav-itemLabel">代码编辑器</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="a-AsideNav-item">
+                  <a
+                    ><span class="a-AsideNav-itemArrow"></span
+                    ><span class="a-AsideNav-itemLabel">会员管理</span></a
+                  >
+                  <ul class="a-AsideNav-subList">
+                    <li class="a-AsideNav-subHeader"><a>会员管理</a></li>
+                    <li class="a-AsideNav-item">
+                      <a><span class="a-AsideNav-itemLabel">列表</span></a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <!--导航结束-->
+          </div>
+        </div>
+      </div>
+      <div class="a-Layout-content" role="main">
+        <div id="main" class="a-Layout-body"></div>
+      </div>
+    </div>
+    <script src="/node_modules/amis/sdk/sdk.js"></script>
+
+    <!-- 这个 js 主要包含一些简单导航边栏点击效果。 -->
+    <script src="/js/script.js"></script>
+    <script type="text/javascript">
+      (function () {
+        var amis = amisRequire("amis/embed");
+
+        // 用 amis 的 sdk 渲染内容区
+        amis.embed("#main", {
+          type: "page",
+          title: "表单向导",
+          subTitle:
+            "可以通过表单向导，将一个超长的表单页面拆分成多个步骤，一步一步指引用户完成。",
+          body: [
+            {
+              type: "wizard",
+              actionFinishLabel: "确认",
+              api: "/api/saveWizard",
+              steps: [
+                {
+                  title: "填写活动信息",
+                  controls: [
+                    {
+                      type: "text",
+                      name: "title",
+                      label: "活动标题",
+                      required: true,
+                      size: "md",
+                    },
+
+                    {
+                      type: "date",
+                      name: "date",
+                      label: "举办时间",
+                      size: "md",
+                    },
+
+                    {
+                      type: "number",
+                      name: "num",
+                      label: "参与人数",
+                      value: 10,
+                      size: "md",
+                    },
+                  ],
+                },
+
+                {
+                  title: "填写赞助商信息",
+                  controls: [
+                    {
+                      type: "text",
+                      name: "company",
+                      label: "公司名称",
+                      required: true,
+                      size: "md",
+                    },
+
+                    {
+                      type: "text",
+                      name: "money",
+                      label: "赞助金额",
+                      addOn: {
+                        type: "text",
+                        label: "￥",
+                      },
+                      size: "md",
+                    },
+                  ],
+                },
+
+                {
+                  title: "确认",
+                  mode: "horizontal",
+                  horizontal: {
+                    leftFixed: "sm",
+                  },
+                  controls: [
+                    {
+                      type: "static",
+                      name: "company",
+                      label: "活动标题",
+                      labelClassName: "text-muted",
+                    },
+                    {
+                      type: "static-date",
+                      name: "date",
+                      label: "举办时间",
+                      labelClassName: "text-muted",
+                    },
+                    {
+                      type: "static",
+                      name: "num",
+                      label: "参与人数",
+                      labelClassName: "text-muted",
+                    },
+                    {
+                      type: "static",
+                      name: "company",
+                      label: "公司名称",
+                      labelClassName: "text-muted",
+                    },
+                    {
+                      type: "static",
+                      name: "money",
+                      label: "赞助金额",
+                      labelClassName: "text-muted",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+      })();
+    </script>
+  </body>
+</html>

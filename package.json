@@ -1,0 +1,24 @@
+{
+  "name": "amis-boilerplate",
+  "version": "1.0.0",
+  "description": "基于 amis 的项目模板",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ."
+  },
+  "keywords": [
+    "amis",
+    "boilerplate",
+    "admin",
+    "react"
+  ],
+  "author": "fex",
+  "license": "MIT",
+  "dependencies": {
+    "amis": "1.0.10"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.1"
+  }
+}
